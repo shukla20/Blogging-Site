@@ -1,6 +1,5 @@
-const { timeStamp } = require('console');
 const mongoose= require('mongoose');
-const { stringify } = require('querystring');
+
 const authorSchema = new mongoose.Schema(
     { fname: 
         {
@@ -16,7 +15,7 @@ const authorSchema = new mongoose.Schema(
       {
         type: String,
         required: true,
-        enum: [Mr, Mrs, Miss]
+        enum: ["Mr", "Mrs", "Miss"]
     } ,
       email: 
        {
@@ -33,6 +32,3 @@ const authorSchema = new mongoose.Schema(
 }, {timestamps:true})
 
 module.exports = mongoose.model('Author', authorSchema)
-
-     
-

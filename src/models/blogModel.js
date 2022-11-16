@@ -1,50 +1,52 @@
-const { timeStamp } = require('console');
-const mongoose= require('mongoose');
-const { stringify } = require('querystring');
+const mongoose = require('mongoose')
+
+const ObjectId = mongoose.Schema.Types.ObjectId
 const blogSchema = new mongoose.Schema(
-    { title:
+    {
+        title:
         {
             type: String,
             required: true
         },
-     body:
-     {
-        required: true
-    },
-     authorId: 
-      {
-        type: ObjectId,
-        ref: "Author"
-     },
-
-    tags: [{type: String}],
-    category: 
-       {
-        type: String,
-        required: true
-    },
-       subcategory:[{type: String}], 
-       // examples[technology-[web development, mobile development, AI, ML etc]] },  
-        deletedAt: 
-         {
-            type: Date,
-            default: false
-            },
-         isDeleted:
+        body:
+        {   type: String,
+            required: true
+        },
+        authorId:
         {
-            type: boolean, 
+            type:ObjectId,
+            ref: 'Author',
+            required:true
+        },
+
+        tags: {
+            type: [String],
+            required : true
+        },
+        category:
+        {
+            type: String,
+            required: true
+        },
+        subcategory: [String] ,
+
+        deletedAt:  Date,
+           
+
+        isDeleted:
+        {
+            type: Boolean,
             default: false
-        }, 
-         publishedAt:
-          {
-            type: Date,
-            default: false
-            },
-          isPublished: 
-          {
-            type: boolean, 
+        },
+
+        publishedAt: Date,
+            
+        
+        isPublished:
+        {
+            type: Boolean,
             default: false
         }
-    }, {timestamps: true });
+    }, { timestamps: true });
 
 module.exports = mongoose.model('Blogs', blogSchema)
