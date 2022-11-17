@@ -1,6 +1,6 @@
 let authorModel = require("../models/authorModel")
 
-let valid = require("../src/validator/validator")
+let valid = require("../validator/validator")
 
 
 let createAuthor = async function (req, res) {
@@ -46,5 +46,33 @@ let createAuthor = async function (req, res) {
         res.status(500).send({ msz: "Error", error: error.message })
     }
 }
+
+
+const login=async function(req, res){
+    try{
+        let email1=req.body.email
+    let password1=req.body.password
+    
+    let loginByEmailPassword = await authorModel.findOne({email:email1, password:password1})
+    
+    if(!loginByEmailPassword){
+        return res.status(404).send({status:false,msg:"email and password are incorrect"})
+    }
+    
+    let token=jwt.sign(
+        {
+            login:loginByEmailPassword._id.toString()
+        },
+        'group4'
+    )
+    res.setHeader("x-api-key", token);
+    res.status(401).send({status:true, msg:token})
+    }
+    catch(err){
+        res.status(500).send({status:false, msg:err.msg})
+    }
+}
+    
+module.exports.login=login
 
 module.exports.createAuthor = createAuthor
