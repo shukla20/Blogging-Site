@@ -181,4 +181,3 @@ module.exports.getBlog = getBlog;
 module.exports.updatedBlog = updatedBlog;
 module.exports.deleteBlog=deleteBlog
 module.exports.deleteBlogBy=deleteBlogBy
-
